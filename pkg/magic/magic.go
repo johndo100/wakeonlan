@@ -103,7 +103,12 @@ func (p *Packet) SendUDP(ip, port string) error {
 		panic(err)
 	}
 	defer conn.Close()
-	fmt.Printf("The payload: %X.\n", p.payload.Bytes())
+
+	_, err = conn.Write(p.payload.Bytes())
+	if err != nil {
+		panic(err)
+	}
+
 	return nil
 }
 
